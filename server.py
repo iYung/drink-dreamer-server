@@ -3,20 +3,23 @@ import os
 import flask
 from flask import request
 
+#loading the ingredients and matrix
 with open('ingredients', 'r') as fi:
     ingredients = cPickle.load(fi)
-
 with open('matrix', 'r') as fi:
     matrix = cPickle.load(fi)
 
 app = flask.Flask(__name__)
 
+#returns all ingredients in order of their id
 @app.route('/ingredients', methods=['GET'])
 def get_ingedients():
     response = {}
     response["ingredients"] = ingredients
     return flask.jsonify(response)
 
+#suggests the next 5 ingredients
+#takes a json body with an array of ingredient ids
 @app.route('/suggest', methods=['POST'])
 def suggest():
 
