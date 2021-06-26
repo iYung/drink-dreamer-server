@@ -1,9 +1,9 @@
-import cPickle
+import _pickle as cPickle
 import os
 import sys
 
 #loading ingredients
-with open('ingredients', 'r') as fi:
+with open('ingredients', 'rb') as fi:
     ingredients = cPickle.load(fi)
 
 #added the id to each ingredient
@@ -15,4 +15,4 @@ if len(sys.argv) != 1:
 
 #prints all ingredients that pass the filter
 for idx, ingredient in indexedIngredients:
-    print idx, ingredient
+    print(idx, ingredient)

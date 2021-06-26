@@ -1,6 +1,6 @@
 import requests
 import sys
-import cPickle
+import _pickle as cPickle
 import os
 
 #variables to store the name of each ingredient and each set
@@ -13,9 +13,9 @@ startAt = 0
 #checks if script has been called before
 #if so, loads the files
 if os.path.isfile('ingredients'):
-    with open('ingredients', 'r') as fi:
+    with open('ingredients', 'rb') as fi:
         ingredients = cPickle.load(fi)
-    with open('ingredientSets', 'r') as fi:
+    with open('ingredientSets', 'rb') as fi:
         ingredientSets = cPickle.load(fi)
     startAt = len(ingredientSets) + 1
 else:
@@ -28,7 +28,7 @@ else:
 
 #creates a set for each ingredient and fills the set with drink ids
 for idx in range(startAt, len(ingredients)):
-    print "getting " + str(idx)
+    print("getting " + str(idx))
     sys.stdout.flush()
     drinkRequest = requests.get('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=' + ingredients[idx])
     newSet = set()
@@ -37,7 +37,7 @@ for idx in range(startAt, len(ingredients)):
     ingredientSets.append(newSet)
     with open('ingredientSets', 'wb') as fo:
         cPickle.dump(ingredientSets, fo)
-    print "added set " + str(idx)
+    print("added set " + str(idx))
     sys.stdout.flush()
 
 #variable to store the scores
